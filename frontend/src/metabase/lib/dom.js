@@ -327,6 +327,12 @@ function clickLink(url, blank = false) {
     if (blank) {
       a.target = "_blank";
     }
+    if(IFRAMED){
+      a.target = "_top";
+      if(url.indexOf('http') < 0){
+        url = `${document.location.ancestorOrigins[0]}${url}`;
+      }
+    }
     a.click();
   } finally {
     a.remove();
@@ -394,6 +400,9 @@ export function isSameOrSiteUrlOrigin(url) {
 }
 
 export function getUrlTarget(url) {
+  if(IFRAMED){
+    return "_top";
+  }
   return isSameOrSiteUrlOrigin(url) ? "_self" : "_blank";
 }
 

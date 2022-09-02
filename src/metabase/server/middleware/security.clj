@@ -52,15 +52,17 @@
                                    "'unsafe-eval'" ; TODO - we keep working towards removing this entirely
                                    "https://maps.google.com"
                                    "https://accounts.google.com"
+                                   "*:3000"
+                                   "thetake.com"
+                                   "*.thetake.com"
+                                   "*.thetake-api.com"
+                                   "thetake-api.com"
                                    (when (public-settings/anon-tracking-enabled)
                                      "https://www.google-analytics.com")
                                    ;; for webpack hot reloading
                                    (when config/is-dev?
                                      "*:8080")
-                                   ;; for react dev tools to work in Firefox until resolution of
-                                   ;; https://github.com/facebook/react/issues/17997
-                                   (when config/is-dev?
-                                     "'unsafe-inline'")]
+                                   "'unsafe-inline'"]
                                   (when-not config/is-dev?
                                     (map (partial format "'sha256-%s'") inline-js-hashes)))
                   :child-src    ["'self'"

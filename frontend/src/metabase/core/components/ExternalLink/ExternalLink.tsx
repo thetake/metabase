@@ -1,5 +1,5 @@
 import React, { AnchorHTMLAttributes, forwardRef, ReactNode, Ref } from "react";
-import { getUrlTarget } from "metabase/lib/dom";
+import { IFRAMED, getUrlTarget } from "metabase/lib/dom";
 import { LinkRoot } from "./ExternalLink.styled";
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -13,6 +13,10 @@ const ExternalLink = forwardRef(function ExternalLink(
   { href, target = getUrlTarget(href), className, children, ...props }: Props,
   ref: Ref<HTMLAnchorElement>,
 ) {
+  if(IFRAMED && href.indexOf('http') < 0){
+    href = `${document.location.ancestorOrigins[0]}${href}`;
+  }
+
   return (
     <LinkRoot
       ref={ref}
